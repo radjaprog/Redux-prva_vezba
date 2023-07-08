@@ -1,7 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { selectCounterValue } from "./store/counter/selectors";
+import {
+  increment,
+  decrement,
+  incrementByAmount,
+  setToRandom,
+  performCounterReset,
+} from "./store/counter/slice";
 
 function App() {
+  const count = useSelector(selectCounterValue);
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
       <header className="App-header">
@@ -9,14 +22,42 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <p>Counter value: {count}</p>
+        <button
+          onClick={() => {
+            dispatch(increment());
+          }}
         >
-          Learn React
-        </a>
+          Increment
+        </button>
+        <button
+          onClick={() => {
+            dispatch(decrement());
+          }}
+        >
+          Decrement
+        </button>
+        <button
+          onClick={() => {
+            dispatch(setToRandom());
+          }}
+        >
+          Set To Random value
+        </button>
+        <button
+          onClick={() => {
+            dispatch(incrementByAmount(2));
+          }}
+        >
+          Increment by value 2
+        </button>
+        <button
+          onClick={() => {
+            dispatch(performCounterReset());
+          }}
+        >
+          Reset
+        </button>
       </header>
     </div>
   );
